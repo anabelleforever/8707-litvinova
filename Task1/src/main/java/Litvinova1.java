@@ -4,13 +4,13 @@ public class Litvinova1 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int tableLength = scanner.nextInt();                                   //получаем размер таблицы
+        int tableLength = 0;                                   //получаем размер таблицы
 
         //проверка входных данных
         boolean correct = false;
         while (!correct) {
             if (tableLength < 1 || tableLength > 32) {
-                System.out.println("Введите число в диапазоне от 1 до 32");
+                System.out.println("Введите целое число в диапазоне от 1 до 32:");
                 tableLength = scanner.nextInt();
             } else correct = true;
         }
