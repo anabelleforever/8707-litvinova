@@ -48,7 +48,7 @@ public class MultiplicationTablePrinterTest {
 
     @Test
     public void testReadTableLengthIsNotNull() throws IOException {
-        when(reader.readLine()).thenReturn("null").thenReturn("25");
+        when(reader.readLine()).thenReturn(null).thenReturn("25");
         Assert.assertNotNull("Null data", MultiplicationTablePrinter.readTableLength(reader));
     }
 }
