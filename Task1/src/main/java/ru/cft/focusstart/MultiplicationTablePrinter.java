@@ -6,29 +6,23 @@ import java.io.PrintStream;
 
 public class MultiplicationTablePrinter {
 
-    static int min = 1;
-    static int max = 32;
-
     public static void main(String[] args) {
         printGreeting(System.out);
         printInConsole(readTableLength(new BufferedReader(new InputStreamReader(System.in))));
     }
 
     public static int readTableLength(BufferedReader reader) {
-        //добиваемся от пользователя корректных входных данных
         int tableLength = 0;
         boolean correct = false;
-        String input;
         while (!correct) {
             try {
-                tableLength = Integer.parseInt(input = reader.readLine());
-                if (tableLength < min || tableLength > max) {
+                tableLength = Integer.parseInt(reader.readLine());
+                if (tableLength < 1 || tableLength > 32) {
                     printGreeting(System.out);
                 } else {
                     correct = true;
                 }
             } catch (Exception e) {
-                //e.printStackTrace();
                 printGreeting(System.out);
             }
         }
@@ -37,12 +31,11 @@ public class MultiplicationTablePrinter {
 
     public static void printGreeting(PrintStream printStream) {
         try {
-            printStream.println("Введите целое число в диапазоне от " + min + " до " + max + ":");
+            printStream.println("Введите целое число в диапазоне от 1 до 32:");
         } catch (Exception e) {
         }
     }
 
-    //разбить на 2 метода: формирование двумерного массива и вывод в консоль?
     public static void printInConsole(int tableLength) {
         int cellLength = String.valueOf(tableLength * tableLength).length();
         for (int l = 1; l < tableLength * 2; l++) {
@@ -64,7 +57,7 @@ public class MultiplicationTablePrinter {
                     }
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 }
