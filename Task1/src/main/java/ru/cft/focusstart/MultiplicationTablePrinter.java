@@ -57,7 +57,7 @@ public class MultiplicationTablePrinter {
                     }
                 }
             }
-            System.out.println();
+            System.out.print("\n");
         }
     }
 }
