@@ -11,7 +11,7 @@ public class FigureInfoReceiver {
         try (FileReader reader = new FileReader(input)) {
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line;
-            while ((line=bufferedReader.readLine())!=null){
+            while ((line = bufferedReader.readLine()) != null) {
                 fileContent.add(line);
             }
             bufferedReader.close();
@@ -20,13 +20,13 @@ public class FigureInfoReceiver {
             e.printStackTrace();
         }
 
-        if(fileContent.size()>2) {
+        if (fileContent.size() > 2) {
             info = GeometricFigure.valueOf(fileContent.get(0)).getAllInfo(fileContent.get(1), fileContent.get(2));
         } else {
             info = GeometricFigure.valueOf(fileContent.get(0)).getAllInfo(fileContent.get(1));
         }
 
-        if(args.length>1){
+        if (args.length > 1) {
             output = new File(args[1]);
         }
     }
