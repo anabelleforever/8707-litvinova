@@ -1,3 +1,5 @@
+package ru.cft.focusstart;
+
 class Consumer implements Runnable {
     final static int QUANTITY_M = 10;
     private final static int WORK_TIME_TM = 2000;

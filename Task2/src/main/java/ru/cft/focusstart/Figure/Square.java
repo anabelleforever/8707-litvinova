@@ -1,4 +1,6 @@
-package Figure;
+package ru.cft.focusstart.Figure;
+
+import ru.cft.focusstart.Figure.Rectangle;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Figure;
+package ru.cft.focusstart.Figure;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

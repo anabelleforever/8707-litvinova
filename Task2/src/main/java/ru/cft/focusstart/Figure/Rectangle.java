@@ -1,4 +1,4 @@
-package Figure;
+package ru.cft.focusstart.Figure;
 
 import java.util.ArrayList;
 

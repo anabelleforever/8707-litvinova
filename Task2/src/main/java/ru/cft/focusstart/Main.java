@@ -1,10 +1,9 @@
-import Figure.GeometricFigure;
+package ru.cft.focusstart;
+
+import ru.cft.focusstart.Figure.GeometricFigure;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import static jdk.nashorn.internal.runtime.JSType.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {

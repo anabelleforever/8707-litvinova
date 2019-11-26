@@ -1,6 +1,11 @@
-import Figure.*;
+package ru.cft.focusstart;
+
+import ru.cft.focusstart.Figure.*;
 
 import java.util.ArrayList;
+
+import static ru.cft.focusstart.FigureType.*;
+import static ru.cft.focusstart.FigureType.CIRCLE;
 
 class FigureFactory {
 

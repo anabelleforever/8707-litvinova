@@ -1,3 +1,5 @@
+package ru.cft.focusstart;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 class Product {
@@ -8,7 +10,7 @@ class Product {
         productID = productIdGenerator.getAndIncrement();
     }
 
-    public int getProductID() {
+    int getProductID() {
         return productID;
     }
 }

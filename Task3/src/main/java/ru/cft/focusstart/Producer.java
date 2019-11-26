@@ -1,3 +1,5 @@
+package ru.cft.focusstart;
+
 class Producer implements Runnable {
     final static int QUANTITY_N = 5;
     private final static int WORK_TIME_TN = 1000;

@@ -1,3 +1,5 @@
+package ru.cft.focusstart;
+
 import java.io.*;
 
 class FigureFileWriter {

@@ -1,3 +1,5 @@
+package ru.cft.focusstart;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
