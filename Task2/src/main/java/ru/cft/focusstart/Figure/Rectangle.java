@@ -8,7 +8,6 @@ public class Rectangle extends GeometricFigure {
     private int width;
 
     public Rectangle(ArrayList<Integer> parameters) {
-        //???? проверка параметров на здравый смысл
         if(parameters.size()==1) {
             length = width = parameters.get(0);
         } else {

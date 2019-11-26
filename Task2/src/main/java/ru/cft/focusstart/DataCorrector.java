@@ -58,19 +58,14 @@ class DataCorrector {
             String s = fileContent.get(i);
             boolean isNumber = false;
             int parameter = -1;
-            while (!isNumber) {
+            while (!isNumber && parameter < 0) {
                 try {
                     parameter = Integer.parseInt(s);
                     isNumber = true;
                 } catch (NumberFormatException e) {
-                    System.out.println("Неверно указан тип параметра фигуры: " + s + ". Введите целое число:");
+                    System.out.println("Неверно указан тип параметра фигуры: " + s + ". Введите целое положительное число:");
                     s = scanner.nextLine();
                 }
-            }
-            while (parameter < 0) {
-                System.out.println("Неверно указан параметр фигуры: " + s + ". Введите целое положительное число:");
-                s = scanner.nextLine();
-                parameter = Integer.parseInt(s);
             }
             parameters.add(parameter);
         }

@@ -7,8 +7,6 @@ public class Circle extends GeometricFigure {
     private int radius;
 
     public Circle(ArrayList<Integer> parameters) {
-        //????????проверка параметра на наличие / больше нуля
-
         radius = parameters.get(0);
         calculateProperties();
     }
