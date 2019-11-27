@@ -15,9 +15,9 @@ class Producer implements Runnable {
         Main.LOG.info("начал работать");
         while (!Thread.interrupted()) {
             try {
+                Thread.sleep(WORK_TIME_TN);
                 Product product = new Product();
                 Main.LOG.info("Ресурс №{} произведен", product.getProductID());
-                Thread.sleep(WORK_TIME_TN);
                 Main.storage.put(product);
                 Main.LOG.info("Ресурс №{} помещен на склад", product.getProductID());
             } catch (InterruptedException e) {
