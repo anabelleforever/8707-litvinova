@@ -22,7 +22,7 @@ local.properties
 .DS_Store
 
 # IDEA project files
-*/.idea/
+/.idea/
 *.iml
 
 # Local IDEA workspace ??

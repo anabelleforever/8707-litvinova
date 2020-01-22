@@ -2,4 +2,8 @@ rootProject.name = 'focusstart'
 include 'Task1'
 include 'Task2'
 include 'Task3'
+include 'Task4:client'
+include 'Task4:common'
+include 'Task4:server'
+include 'Task5'
 
