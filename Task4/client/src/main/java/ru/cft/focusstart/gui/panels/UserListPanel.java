@@ -5,13 +5,20 @@ import ru.cft.focusstart.dto.Notification;
 import javax.swing.*;
 
 public final class UserListPanel implements Observer {
-//    private static UserListPanel userListPanel;
+    private static UserListPanel userListPanel;
     private static JTextArea userListWindow;
     private static JScrollPane userListPane;
 
     private UserListPanel() {}
 
-    public static JScrollPane getUserListPanel() {
+    public static Observer getUserListPanel() {
+        if (userListPanel==null){
+            userListPanel = new UserListPanel();
+        }
+        return userListPanel;
+    }
+
+    public static JScrollPane getUserListPane() {
         userListPane = new JScrollPane();
         userListWindow = new JTextArea();
         userListWindow.setEditable(false);

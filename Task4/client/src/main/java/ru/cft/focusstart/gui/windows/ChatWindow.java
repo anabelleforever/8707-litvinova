@@ -3,10 +3,8 @@ package ru.cft.focusstart.gui.windows;
 import javax.swing.*;
 import java.awt.*;
 
-import static ru.cft.focusstart.gui.panels.ChatPanel.getChatPanel;
-
-
-import static ru.cft.focusstart.gui.panels.UserListPanel.getUserListPanel;
+import static ru.cft.focusstart.gui.panels.ChatPanel.getChatPane;
+import static ru.cft.focusstart.gui.panels.UserListPanel.getUserListPane;
 
 public class ChatWindow extends Window {
 
@@ -27,7 +25,7 @@ public class ChatWindow extends Window {
 //        constraints.weightx = 1.0;
         constraints.weighty = 1.0;
         constraints.insets = new Insets(5, 5, 5, 5);
-        panel.add(getChatPanel(), constraints);
+        panel.add(getChatPane(), constraints);
 
         constraints.fill = GridBagConstraints.BOTH;
         constraints.anchor = GridBagConstraints.CENTER;
@@ -37,7 +35,7 @@ public class ChatWindow extends Window {
 //        constraints.weightx = 1.0;
         constraints.weighty = 1.0;
         constraints.insets = new Insets(5, 5, 5, 5);
-        panel.add(getUserListPanel(), constraints);
+        panel.add(getUserListPane(), constraints);
 
         tfMessage = new JTextField();
         constraints.anchor = GridBagConstraints.PAGE_END;

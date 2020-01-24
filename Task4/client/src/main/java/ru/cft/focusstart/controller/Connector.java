@@ -1,4 +1,4 @@
-package ru.cft.focusstart.model;
+package ru.cft.focusstart.controller;
 
 public class Connector {
     private static Connector connector;
@@ -10,6 +10,8 @@ public class Connector {
         }
         return connector;
     }
+
+
 
 
 }
