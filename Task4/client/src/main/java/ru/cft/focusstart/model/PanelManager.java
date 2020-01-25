@@ -1,4 +1,4 @@
-package ru.cft.focusstart.controller;
+package ru.cft.focusstart.model;
 
 import ru.cft.focusstart.dto.Notification;
 import ru.cft.focusstart.gui.panels.Observer;

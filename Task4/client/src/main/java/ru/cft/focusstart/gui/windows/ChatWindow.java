@@ -6,9 +6,20 @@ import java.awt.*;
 import static ru.cft.focusstart.gui.panels.ChatPanel.getChatPane;
 import static ru.cft.focusstart.gui.panels.UserListPanel.getUserListPane;
 
-public class ChatWindow extends Window {
-
+public final class ChatWindow extends Window {
+    private static ChatWindow chatWindow;
     private JTextField tfMessage;
+
+    public ChatWindow getChatWindow() {
+        if (chatWindow == null) {
+            chatWindow = new ChatWindow();
+        }
+        return chatWindow;
+    }
+
+    public String getMessage(){
+        return tfMessage.getText();
+    }
 
     @Override
     public void windowBuilder() {
@@ -70,13 +81,13 @@ public class ChatWindow extends Window {
         jFrame.setPreferredSize(new Dimension(600, 300));
     }
 
-    @Override
-    void btnOKOnClick() {
-        btnOK.addActionListener(e -> {
-            String  message = tfMessage.getText();
-            tfMessage.setText("");
-            // передаем сообщение серверу+++++
-//            chatPanel.update(message);
-        });
-    }
+//    @Override
+//    void btnOKOnClick() {
+//        btnOK.addActionListener(e -> {
+//            String  message = tfMessage.getText();
+//            tfMessage.setText("");
+//            // передаем сообщение серверу+++++
+////            chatPanel.update(message);
+//        });
+//    }
 }

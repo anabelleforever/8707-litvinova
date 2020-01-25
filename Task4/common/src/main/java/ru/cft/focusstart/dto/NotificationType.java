@@ -6,5 +6,6 @@ public enum NotificationType {
     INVALID_USERNAME,
     MESSAGE,
     CONNECTED,
-    DISCONNECTED
+    DISCONNECTED,
+    NULL
 }

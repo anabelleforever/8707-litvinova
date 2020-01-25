@@ -1,18 +1,34 @@
 package ru.cft.focusstart.gui.windows;
 
+import ru.cft.focusstart.controller.ButtonListener;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class AuthorizationWindow extends Window {
-
+public final class AuthorizationWindow extends Window {
+    private static AuthorizationWindow authorizationWindow;
     private JTextField tfServer;
     private Label lbServer;
     private JTextField tfUser;
     private Label lbUser;
-    private String userName;
-    private String serverAddress;
-    private String serverName;
-    private int port;
+
+    private AuthorizationWindow() {
+    }
+
+    public static AuthorizationWindow getAuthorizationWindow() {
+        if (authorizationWindow == null) {
+            authorizationWindow = new AuthorizationWindow();
+        }
+        return authorizationWindow;
+    }
+
+    public String getUserName() {
+        return tfUser.getText();
+    }
+
+    public String getServerPort() {
+        return tfServer.getText();
+    }
 
     @Override
     void windowBuilder() {
@@ -34,6 +50,7 @@ public class AuthorizationWindow extends Window {
         panel.add(lbUser, constraints);
 
         btnOK = new JButton("OK");
+        btnOK.addActionListener(new ButtonListener(ButtonType.AUTHORIZATION));
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.ipadx = 30;
         constraints.insets = new Insets(10, 0, 0, 10);
@@ -49,6 +66,7 @@ public class AuthorizationWindow extends Window {
         panel.add(lbServer, constraints);
 
         btnCancel = new JButton("Cancel");
+        btnCancel.addActionListener(new ButtonListener(ButtonType.CANCEL));
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.ipadx = 10;
         constraints.weightx = 1.0;
@@ -58,28 +76,15 @@ public class AuthorizationWindow extends Window {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    @Override
-    void btnOKOnClick() {
-        btnOK.addActionListener(e -> {
-            userName = tfUser.getText();
-            serverAddress = tfServer.getText();
-            verifyData();
-            jFrame.setVisible(false);
-        });
-    }
-
-    void verifyData() {
-
-        if(userName.equals("")){
-            WarningWindow warningWindow = new WarningWindow();
-            warningWindow.display();
-        } else {
-            ChatWindow chat = new ChatWindow();
-            chat.display();
-        }
-//        WarningWindow warningWindow = new WarningWindow("");
+//    void verifyData() {
+//
+//        if(userName.equals("")){
+//            WarningWindow warningWindow = new WarningWindow();
+//            warningWindow.display();
+//        } else {
+//            ChatWindow chat = new ChatWindow();
+//            chat.display();
+//        }
+////        WarningWindow warningWindow = new WarningWindow("");
 //        warningWindow.run();
-    }
-
-
 }

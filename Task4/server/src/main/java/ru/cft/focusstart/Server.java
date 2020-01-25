@@ -1,6 +1,7 @@
 package ru.cft.focusstart;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,59 +9,76 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
 
-final class Server {
-    private static Server server;
+public class Server {
+    //    private static Server server;
     private static ServerSocket serverSocket;
     static boolean serverRunning;
-    private static Logger log = Logger.getLogger("Server: ");
+    public Properties properties;
+//    final static Logger log = LoggerFactory.getLogger(Server.class);
 
-    private Server(){}
+//    private Server() {
+//    }
 
-    public static Server getServer(){
-        if(server==null){
-            server = new Server();
-        }
-        return server;
-    }
-
-    void start() {
+//    public static Server getServer() {
 //        if (server == null) {
 //            server = new Server();
 //        }
-        Runtime.getRuntime().addShutdownHook(new Thread(server::close));
+//        return server;
+//    }
+
+    public void start() {
         Properties properties = new Properties();
         try (InputStream propertiesStream = Server.class.getResourceAsStream("/server.properties")) {
             if (propertiesStream != null) {
                 properties.load(propertiesStream);
             }
-            serverSocket = new ServerSocket(Integer.valueOf(properties.getProperty("server.port")));
+            int port = Integer.valueOf(properties.getProperty("server.port"));
+            System.out.println(port);
+        try {
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            log.error("Не удалось открыть соединение с сервером! " + e.getMessage());
+//            log.error("Не верно указан порт. " + e.getMessage());
+            System.out.println("ошибка открытия порта");
         }
 
-        listenServerSocket();
-
+        } catch (NumberFormatException e) {
+//            log.error("Не верно указан порт. " + e.getMessage());
+            System.out.println("неверный формат порта");
+        } catch (IOException e) {
+//            log.error("Не удалось открыть соединение с сервером. " + e.getMessage());
+            System.out.println("ошибка соединения");
+        }
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
+        if(serverSocket!=null) {
+            serverRunning = true;
+            listenServerSocket();
+        }
     }
 
     void close() {
         serverRunning = false;
         try {
-            serverSocket.close();
-            //добавить закрытие сокетов клиентов
-//            for (Socket socket : clients) {
-//                socket.close();
-//            }
+            for (Client client : ClientManager.getClientManager().getClients()) {
+                client.getClientSocket().close();
+            }
+            if (serverSocket != null) serverSocket.close();
+//        } catch (NullPointerException e) {
+//            log.error("");
         } catch (IOException e) {
-            log.error("Ошибка при закрытии соединения. " + e.getMessage());
+//            log.error("Ошибка при закрытии соединения. " + e.getMessage());
+            System.out.println("Ошибка при закрытии соединения. ");
         }
     }
 
     void listenServerSocket() {
         while (serverRunning) {
-            try(Socket socket = serverSocket.accept()) {
+            try (Socket socket = serverSocket.accept()) {
                 Client client = new Client(socket);
             } catch (IOException e) {
-                log.error("Ошибка соединения с клиентом. " + e.getMessage());
+//                log.error("Ошибка соединения с клиентом. " + e.getMessage());
+                System.out.println("Ошибка соединения с клиентом.");
+            } finally {
+
             }
         }
     }

@@ -1,8 +1,9 @@
 package ru.cft.focusstart.gui.windows;
 
 import javax.swing.*;
+import java.io.Closeable;
 
-public abstract class Window implements Displayable{
+public abstract class Window implements Displayable, Closeable {
     JFrame jFrame;
     JButton btnOK;
     JButton btnCancel;
@@ -10,23 +11,17 @@ public abstract class Window implements Displayable{
 
     public void display() {
         windowBuilder();
-
-        btnOKOnClick();
-        btnCancelOnClick();
-
         jFrame.add(panel);
-        jFrame.setBounds(500, 300, 500, 500);
+        jFrame.setBounds(500, 500, 500, 500);
         jFrame.setResizable(false);
         jFrame.pack();
         jFrame.setVisible(true);
     }
 
-    abstract void windowBuilder();
-
-    abstract void btnOKOnClick();
-
-    void btnCancelOnClick() {
-        btnCancel.addActionListener(e -> System.exit(0));
+    public void close(){
+        jFrame.setVisible(false);
     }
+
+    abstract void windowBuilder();
 
 }
