@@ -12,7 +12,7 @@ import java.util.Properties;
 public class Server {
     //    private static Server server;
     private static ServerSocket serverSocket;
-    static boolean serverRunning;
+    private static boolean serverRunning;
     public Properties properties;
 //    final static Logger log = LoggerFactory.getLogger(Server.class);
 
@@ -26,20 +26,19 @@ public class Server {
 //        return server;
 //    }
 
-    public void start() {
+    void start() {
         Properties properties = new Properties();
         try (InputStream propertiesStream = Server.class.getResourceAsStream("/server.properties")) {
             if (propertiesStream != null) {
                 properties.load(propertiesStream);
             }
-            int port = Integer.valueOf(properties.getProperty("server.port"));
-            System.out.println(port);
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
+//            int port = Integer.valueOf(properties.getProperty("server.port"));
+            try {
+                serverSocket = new ServerSocket(2525);
+            } catch (IOException e) {
 //            log.error("Не верно указан порт. " + e.getMessage());
-            System.out.println("ошибка открытия порта");
-        }
+                System.out.println("ошибка открытия порта");
+            }
 
         } catch (NumberFormatException e) {
 //            log.error("Не верно указан порт. " + e.getMessage());
@@ -49,13 +48,13 @@ public class Server {
             System.out.println("ошибка соединения");
         }
         Runtime.getRuntime().addShutdownHook(new Thread(this::close));
-        if(serverSocket!=null) {
+        if (serverSocket != null) {
             serverRunning = true;
             listenServerSocket();
         }
     }
 
-    void close() {
+    private void close() {
         serverRunning = false;
         try {
             for (Client client : ClientManager.getClientManager().getClients()) {
@@ -70,15 +69,13 @@ public class Server {
         }
     }
 
-    void listenServerSocket() {
+    private void listenServerSocket() {
         while (serverRunning) {
             try (Socket socket = serverSocket.accept()) {
                 Client client = new Client(socket);
             } catch (IOException e) {
 //                log.error("Ошибка соединения с клиентом. " + e.getMessage());
                 System.out.println("Ошибка соединения с клиентом.");
-            } finally {
-
             }
         }
     }

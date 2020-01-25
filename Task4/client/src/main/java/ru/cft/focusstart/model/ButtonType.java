@@ -1,4 +1,4 @@
-package ru.cft.focusstart.gui.windows;
+package ru.cft.focusstart.model;
 
 public enum ButtonType {
     CANCEL,

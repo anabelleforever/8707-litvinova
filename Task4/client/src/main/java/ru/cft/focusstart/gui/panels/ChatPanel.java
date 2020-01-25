@@ -1,6 +1,7 @@
 package ru.cft.focusstart.gui.panels;
 
 import ru.cft.focusstart.dto.Notification;
+import ru.cft.focusstart.model.PanelManager;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
@@ -12,16 +13,18 @@ public final class ChatPanel implements Observer {
     private static JTextArea tfChat = new JTextArea();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
-    private ChatPanel() {}
+    private ChatPanel() {
+    }
 
-    public static Observer getChatPanel() {
-        if (chatPanel==null){
+    public static ChatPanel getChatPanel() {
+        if (chatPanel == null) {
             chatPanel = new ChatPanel();
         }
+        PanelManager.addObserver(chatPanel);
         return chatPanel;
     }
 
-    public static JScrollPane getChatPane() {
+    public JScrollPane getChatPane() {
         tfChat.setEditable(false);
         chatPane.setViewportView(tfChat);
         return chatPane;

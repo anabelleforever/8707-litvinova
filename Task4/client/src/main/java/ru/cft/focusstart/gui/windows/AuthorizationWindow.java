@@ -1,6 +1,7 @@
 package ru.cft.focusstart.gui.windows;
 
 import ru.cft.focusstart.controller.ButtonListener;
+import ru.cft.focusstart.model.ButtonType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,7 +74,7 @@ public final class AuthorizationWindow extends Window {
         constraints.insets = new Insets(10, 0, 10, 10);
         panel.add(btnCancel, constraints);
 
-        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
 //    void verifyData() {

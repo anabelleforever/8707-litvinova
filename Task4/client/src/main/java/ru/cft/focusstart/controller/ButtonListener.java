@@ -1,12 +1,14 @@
 package ru.cft.focusstart.controller;
 
 import ru.cft.focusstart.gui.windows.AuthorizationWindow;
-import ru.cft.focusstart.gui.windows.ButtonType;
+import ru.cft.focusstart.model.ButtonType;
 import ru.cft.focusstart.gui.windows.WarningWindow;
 import ru.cft.focusstart.model.WindowManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static ru.cft.focusstart.controller.Controller.getController;
 
 public class ButtonListener implements ActionListener {
     private ButtonType buttonType;
@@ -20,15 +22,18 @@ public class ButtonListener implements ActionListener {
 
         switch (buttonType) {
             case CANCEL:
-                System.exit(0);
+                getController().disconnect();
                 break;
             case AUTHORIZATION:
-                Controller.getController().authorizeUser();
+                getController().authorizeUser();
                 break;
             case WARNING_OK:
                 WindowManager.closeWindow(WarningWindow.getWarningWindow());
                 WindowManager.displayWindow(AuthorizationWindow.getAuthorizationWindow());
                 break;
+            case MESSAGE:
+                getController().sendMessage();
+
 }
 
     }

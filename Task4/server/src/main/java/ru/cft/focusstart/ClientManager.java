@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.cft.focusstart.NotificationFactory.getNotification;
+
 final class ClientManager {
     private static ClientManager clientManager;
     private List<Client> clients;
@@ -17,60 +19,61 @@ final class ClientManager {
         userList = Collections.synchronizedList(new ArrayList<>());
     }
 
-    public static ClientManager getClientManager() {
+    static ClientManager getClientManager() {
         if (clientManager == null) {
             clientManager = new ClientManager();
         }
         return clientManager;
     }
 
-    public List<String> getUserList(){
+    List<String> getUserList() {
         return userList;
     }
 
-    public List<Client> getClients(){
+    List<Client> getClients() {
         return clients;
     }
 
-    void addClient(Client client) {
+    private void addClient(Client client) {
         clients.add(client);
-        userList.add(client.userName);
+        userList.add(client.getUserName());
     }
 
-    void deleteClient(Client client) {
+    private void deleteClient(Client client) {
         clients.remove(client);
-        userList.remove(client.userName);
+        userList.remove(client.getUserName());
     }
 
-    public void interpretNotification(Notification notification, Client client) {
+    void parseNotification(Notification notification, Client client) {
         switch (notification.getNotificationType()) {
             case USER_VERIFICATION:
                 if (userList.contains(notification.getUserName())) {
-                    Notification invalidUsername = NotificationFactory.getNotification(NotificationType.INVALID_USERNAME);
+                    Notification invalidUsername = getNotification(NotificationType.INVALID_USERNAME);
                     client.notify(invalidUsername);
                 } else {
-                    client.userName = notification.getUserName();
+                    client.setUserName(notification.getUserName());
                     addClient(client);
 
-                    Notification validUsername = NotificationFactory.getNotification(NotificationType.VALID_USERNAME);
+                    Notification validUsername = getNotification(NotificationType.VALID_USERNAME);
                     client.notify(validUsername);
 
-                    Notification userConnected = NotificationFactory.getNotification(NotificationType.CONNECTED);
+                    Notification userConnected = getNotification(NotificationType.CONNECTED);
                     notifyClients(userConnected);
                 }
                 break;
             case MESSAGE:
-                Notification userMessage = NotificationFactory.getNotification(NotificationType.MESSAGE);
+                Notification userMessage = getNotification(NotificationType.MESSAGE);
+                userMessage.setMessage(notification.getMessage());
                 notifyClients(userMessage);
             case DISCONNECTED:
                 deleteClient(client);
-                Notification userDisconnected = NotificationFactory.getNotification(NotificationType.DISCONNECTED);
+                Notification userDisconnected = getNotification(NotificationType.DISCONNECTED);
                 notifyClients(userDisconnected);
                 client.stop();
         }
     }
 
-    void notifyClients(Notification notification){
+    private void notifyClients(Notification notification) {
         for (Client client : clients) {
             client.notify(notification);
         }

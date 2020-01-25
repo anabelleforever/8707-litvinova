@@ -5,18 +5,18 @@ import ru.cft.focusstart.gui.panels.Observer;
 
 import java.util.ArrayList;
 
-final class PanelManager {
-    private static ArrayList<Observer> observers;
+public final class PanelManager {
+    private static ArrayList<Observer> observers = new ArrayList<>();
 
-    private PanelManager(){
+    private PanelManager() {
     }
 
-    static void addObserver(Observer observer){
+    public static void addObserver(Observer observer) {
         observers.add(observer);
     }
 
-    static void updatePanels(Notification notification){
-        for (Observer observer:observers) {
+    public static void updatePanels(Notification notification) {
+        for (Observer observer : observers) {
             observer.update(notification);
         }
     }

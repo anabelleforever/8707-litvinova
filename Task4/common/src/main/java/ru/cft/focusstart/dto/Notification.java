@@ -7,15 +7,10 @@ public class Notification {
     private ArrayList<String> userList = new ArrayList<>();
     private String userName;
     private String message;
-    private Date date;
     private NotificationType notificationType;
 
-    public Notification(){
-        date = new Date();
-    }
 
     public Notification(NotificationType type){
-        date = new Date();
         notificationType = type;
         message = notificationType.toString();
     }
@@ -47,4 +42,5 @@ public class Notification {
     public NotificationType getNotificationType(){
         return notificationType;
     }
+
 }

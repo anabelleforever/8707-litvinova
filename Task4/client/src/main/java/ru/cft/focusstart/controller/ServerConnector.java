@@ -1,40 +1,26 @@
-package ru.cft.focusstart;
+package ru.cft.focusstart.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.cft.focusstart.dto.Notification;
 
 import java.io.*;
 import java.net.Socket;
 
-import static ru.cft.focusstart.ClientManager.getClientManager;
+import static ru.cft.focusstart.controller.Controller.getController;
 
-class Client implements Runnable {
+class ServerConnector implements Runnable {
     private Socket clientSocket;
     private ObjectMapper mapper = new ObjectMapper();
     private String userName;
     private Thread thread;
-//    private Logger log = Logger.getLogger("Client: ");
 
-    Client(Socket socket) {
+    ServerConnector(Socket socket, String userName){
         clientSocket = socket;
-        mapper.registerModule(new JavaTimeModule());
+        this.userName = userName;
         thread = new Thread(this);
         thread.start();
-    }
-
-    void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    String getUserName() {
-        return userName;
-    }
-
-    Socket getClientSocket() {
-        return clientSocket;
     }
 
     @Override
@@ -46,7 +32,7 @@ class Client implements Runnable {
                     notification = mapper.readValue(reader.readLine(), Notification.class);
                 }
                 if (notification != null) {
-                    getClientManager().parseNotification(notification, this);
+                    getController().parseNotification(notification);
                 }
                 try {
                     Thread.sleep(100);
@@ -69,6 +55,7 @@ class Client implements Runnable {
 
     void notify(Notification notification) {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()))) {
+            notification.setUserName(userName);
             writer.write(mapper.writeValueAsString(notification));
             writer.write(System.lineSeparator());
             writer.flush();

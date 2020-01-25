@@ -6,6 +6,8 @@ import ru.cft.focusstart.dto.NotificationType;
 import java.util.ArrayList;
 import java.util.Observer;
 
+import static ru.cft.focusstart.ClientManager.getClientManager;
+
 final class NotificationFactory {
 
     static Notification getNotification(NotificationType type) {
@@ -20,15 +22,43 @@ final class NotificationFactory {
                 break;
             case CONNECTED:
                 notification = new Notification(NotificationType.CONNECTED);
-                notification.setUserList((ArrayList<String>) ClientManager.getClientManager().getUserList());
                 break;
             case MESSAGE:
                 notification = new Notification(NotificationType.MESSAGE);
-                notification.setUserList((ArrayList<String>) ClientManager.getClientManager().getUserList());
                 break;
             case DISCONNECTED:
                 notification = new Notification(NotificationType.DISCONNECTED);
-                notification.setUserList((ArrayList<String>) ClientManager.getClientManager().getUserList());
+                break;
+            default:
+                throw new IllegalArgumentException("Неверно указан тип: " + type);
+        }
+        return notification;
+    }
+
+    static Notification getNotification(NotificationType type, Client client) {
+        Notification notification;
+        switch (type) {
+            case VALID_USERNAME:
+                notification = new Notification(NotificationType.VALID_USERNAME);
+                break;
+            case INVALID_USERNAME:
+                notification = new Notification(NotificationType.INVALID_USERNAME);
+                notification.setMessage("Username is invalid. Try another one.");
+                break;
+            case CONNECTED:
+                notification = new Notification(NotificationType.CONNECTED);
+                notification.setUserName(client.getUserName());
+                notification.setUserList((ArrayList<String>) getClientManager().getUserList());
+                break;
+            case MESSAGE:
+                notification = new Notification(NotificationType.MESSAGE);
+                notification.setUserName(client.getUserName());
+                notification.setUserList((ArrayList<String>) getClientManager().getUserList());
+                break;
+            case DISCONNECTED:
+                notification = new Notification(NotificationType.DISCONNECTED);
+                notification.setUserName(client.getUserName());
+                notification.setUserList((ArrayList<String>) getClientManager().getUserList());
                 break;
             default:
                 throw new IllegalArgumentException("Неверно указан тип: " + type);
